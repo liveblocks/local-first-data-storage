@@ -2,40 +2,125 @@
 import { LandscapeSchema } from '@localfirstfm/landscape-schema'
 
 export const data = LandscapeSchema.make({
-	Version: 1,
-	Id: 'supersync',
-	Name: 'SuperSync',
-	Description: 'A cool way to sync data',
-	Website: 'https://supersync.cool',
-	Deployment: ['Self-hosted'],
-	License: 'MIT',
-	AppTarget: {
-		LanguageSDK: { data: ['typescript'] },
-	},
-	Networking: {
-		Topology: { data: 'Client-Server' },
-	},
-	ServerSideData: {
-		PersistenceMechanism: { data: ['N/A'] },
-		DataModelParadigm: { data: 'Relational' },
-	},
-	ClientSideData: {
-		QueryAPI: { data: ['Async'] },
-		PersistenceMechanism: { data: ['IndexedDB', 'OPFS'] },
-		PersistenceFeatures: { data: 'Indexes' },
-		DataModel: { data: 'Document' },
-		OfflineReads: { data: 'Full Support' },
-		OfflineWrites: { data: 'Local conflict resolution' },
-		DataSize: { data: 'Up to 5-10 MB per document' },
-	},
-	SynchronizationStrategy: {
-		FullOrPartialReplication: { data: ['Full Replication'] },
-		ConflictHandling: { data: 'Automatic via CRDT' },
-		WhereResolutionOccurs: { data: 'Client' },
-		WhatGetsSynced: {
-			data: {
-				ClientToClient: 'Ops',
-			},
-		},
-	},
+  Version: 1,
+  Id: 'liveblocks-storage',
+  Name: 'Liveblocks Storage',
+  Website: 'https://liveblocks.io',
+  License: 'Proprietary',
+  Deployment: ['Hosted'],
+  AppTarget: {
+    Platform: {
+      data: ['Browser', 'Node']
+    },
+    LanguageSDK: {
+      data: ['TypeScript']
+    },
+    FrameworkIntegrations: {
+      data: ['React', 'Zustand', 'Redux']
+    }
+  },
+  Networking: {
+    Protocol: {
+      data: ['WebSockets', 'HTTP']
+    },
+    Topology: {
+      data: 'Client-Server'
+    }
+  },
+  ServerSideData: {
+    PersistenceMechanism: {
+      data: ['Cloudflare Durable Object Storage', 'SQLite']
+    },
+    DataModelParadigm: {
+      data: 'Document'
+    },
+    SchemaManagement: {
+      data: ['Schema definition', 'Schema validation']
+    },
+    ExistingDatabaseSupport: {
+      data: 'Webhooks and REST API',
+      comment: 'Does not require a datastore, but you can migrate or automatically sync to your database with webhooks/REST API'
+    }
+  },
+  ClientSideData: {
+    QueryAPI: {
+      data: ['Signals-based Reactivity', 'Reactive queries'],
+      comment: 'JS: via subscription. React: via selector hooks, mutation callbacks. Automatically converts live data structures to JSON for easy UI.hook updates automatically on changes.can retrieve deep into the data structure without causing unnecessary renders.'
+    },
+    LocalRefreshLatency: {
+      data: '16ms'
+    },
+    PersistenceMechanism: {
+      data: ['Liveblocks Storage']
+    },
+    DataModel: {
+      data: 'Document',
+      comment: 'LiveObject'
+    },
+    SchemaManagement: {
+      data: ['Schema definition']
+    },
+    OfflineReads: {
+      data: 'Query Cache',
+      comment: 'Previously accessed data is stored in-memory'
+    },
+    OptimisticUpdates: {
+      data: 'Yes',
+    },
+    OfflineWrites: {
+      data: 'Cached offline writes',
+      comment: 'Full cached writes, stored in-memory, server will resolve conflict.'
+    },
+    DataSize: {
+      data: 'limited by device capabilities'
+    }
+  },
+  SynchronizationStrategy: {
+    ConflictHandling: {
+      data: 'Automatic via LWW or fractional indexing',
+      comment: 'Values: LWW, LiveObject: LWW at attribute level, LiveMap: LWW at entry level, LiveList: fractional indexing (for insertions) or LWW (for replacements)'
+    },
+    WhereResolutionOccurs: {
+      data: 'Server'
+    },
+    WhatGetsSynced: {
+      data: {
+        ClientToServer: 'ops',
+        ServerToClient: 'ops, acks, and fix-ops (when conflict was resolved)'
+      }
+    },
+    Authority: {
+      data: 'Centralized'
+    }
+  },
+  AuthIdentity: {
+    Encryption: {
+      data: 'transport-level (wss:// or https://)'
+    },
+    AuthenticationMethod: {
+      data: ['JWT tokens', 'Public key']
+    },
+    AuthorizationPermissions: {
+      data: 'ID tokens and Access tokens',
+      comment: 'ID tokens (= permissions based on whats allowed on a per-room basis). Access tokens (= permissions granted in the token directly)'
+    }
+  },
+  UIRelated: {
+    Components: {
+      data: ['Comments/Threads', 'Notifications', 'Presence']
+    }
+  },
+  DevelopmentWorkflowsDX: {
+    DebuggingTools: {
+      data: ['DevTools', 'Dashboard', 'Data Inspector'],
+      comment: 'Viewing/editing data, events, usage, etc.'
+    },
+    CLI: {
+      data: 'CLI for installing examples, updating packages, creating your typescript config'
+    },
+    TypeSupport: {
+      data: 'Full type support',
+      comment: 'Via `liveblocks.config.ts`.'
+    }
+  }
 })
