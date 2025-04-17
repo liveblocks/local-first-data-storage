@@ -5,7 +5,7 @@ export const data = LandscapeSchema.make({
   Version: 1,
   Id: 'liveblocks-storage',
   Name: 'Liveblocks Storage',
-  Website: 'https://liveblocks.io',
+  Website: 'https://liveblocks.io/sync-datastore/storage',
   License: 'Proprietary',
   Deployment: ['Hosted'],
   AppTarget: {
